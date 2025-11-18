@@ -11,17 +11,17 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-gray-900">
-              <Link href="/" className="text-gray-900 no-underline hover:no-underline hover:text-gray-900">Fashion Store</Link>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <Link href="/" className="text-gray-900 dark:text-white no-underline hover:no-underline hover:text-gray-900 dark:hover:text-white">Fashion Store</Link>
             </h1>
             <nav className="hidden md:block">
               <ul className="flex space-x-8">
-                <li><Link href="/" className="text-gray-600 hover:text-gray-900">Home</Link></li>
-                <li><Link href="/dashboard" className="text-gray-600 hover:text-gray-900">Dashboard</Link></li>
+                <li><Link href="/" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</Link></li>
+                <li><Link href="/dashboard" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Dashboard</Link></li>
               </ul>
             </nav>
           </div>
@@ -30,10 +30,10 @@ export default function ProductPage({ params }: { params: { id: string } }) {
       
       <main className="container mx-auto px-4 py-8">
         <div className="mb-4">
-          <Link href="/" className="text-blue-600 hover:underline">← Back to products</Link>
+          <Link href="/" className="text-blue-600 dark:text-blue-400 hover:underline">← Back to products</Link>
         </div>
         
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm overflow-hidden">
           <div className="md:flex">
             <div className="md:w-1/2">
               <div className="relative h-96 w-full">
@@ -46,27 +46,27 @@ export default function ProductPage({ params }: { params: { id: string } }) {
               </div>
             </div>
             <div className="p-6 md:w-1/2">
-              <h1 className="text-2xl font-bold text-gray-900">{product.name}</h1>
-              <p className="mt-2 text-sm text-gray-500">{product.category}</p>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{product.name}</h1>
+              <p className="mt-2 text-sm text-gray-500 dark:text-gray-300">{product.category}</p>
               
               <div className="mt-4">
                 {product.salePrice ? (
                   <div className="flex items-center">
-                    <span className="text-2xl font-bold text-gray-900">₹{product.salePrice.toFixed(2)}</span>
-                    <span className="ml-2 text-lg text-gray-500 line-through">₹{product.price.toFixed(2)}</span>
+                    <span className="text-2xl font-bold text-gray-900 dark:text-white">₹{product.salePrice.toFixed(2)}</span>
+                    <span className="ml-2 text-lg text-gray-500 dark:text-gray-400 line-through">₹{product.price.toFixed(2)}</span>
                   </div>
                 ) : (
-                  <span className="text-2xl font-bold text-gray-900">₹{product.price.toFixed(2)}</span>
+                  <span className="text-2xl font-bold text-gray-900 dark:text-white">₹{product.price.toFixed(2)}</span>
                 )}
               </div>
               
-              <p className="mt-4 text-gray-700">{product.description}</p>
+              <p className="mt-4 text-gray-700 dark:text-gray-300">{product.description}</p>
               
               <div className="mt-6">
-                <h3 className="text-sm font-medium text-gray-900">Available Sizes</h3>
+                <h3 className="text-sm font-medium text-gray-900 dark:text-white">Available Sizes</h3>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {product.sizes.map((size) => (
-                    <span key={size} className="rounded-md border px-3 py-1 text-sm">
+                    <span key={size} className="rounded-md border border-gray-300 dark:border-gray-600 px-3 py-1 text-sm text-gray-700 dark:text-gray-300">
                       {size}
                     </span>
                   ))}
@@ -74,10 +74,10 @@ export default function ProductPage({ params }: { params: { id: string } }) {
               </div>
               
               <div className="mt-6">
-                <h3 className="text-sm font-medium text-gray-900">Colors</h3>
+                <h3 className="text-sm font-medium text-gray-900 dark:text-white">Colors</h3>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {product.colors.map((color) => (
-                    <span key={color} className="rounded-md border px-3 py-1 text-sm">
+                    <span key={color} className="rounded-md border border-gray-300 dark:border-gray-600 px-3 py-1 text-sm text-gray-700 dark:text-gray-300">
                       {color}
                     </span>
                   ))}
@@ -88,7 +88,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                 <button className="flex-1 rounded-md bg-black px-4 py-3 text-sm font-medium text-white hover:bg-gray-800">
                   Add to Cart
                 </button>
-                <button className="rounded-md border border-gray-300 px-4 py-3 text-sm font-medium hover:bg-gray-50">
+                <button className="rounded-md border border-gray-300 dark:border-gray-600 px-4 py-3 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200">
                   ♥ Wishlist
                 </button>
               </div>
@@ -97,8 +97,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
         </div>
       </main>
       
-      <footer className="bg-white border-t py-8 mt-auto">
-        <div className="container mx-auto px-4 text-center text-gray-500">
+      <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-auto">
+        <div className="container mx-auto px-4 text-center text-gray-500 dark:text-gray-400">
           <p>© 2023 Fashion Store. All rights reserved.</p>
         </div>
       </footer>
