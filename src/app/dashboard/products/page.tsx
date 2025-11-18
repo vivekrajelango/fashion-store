@@ -2,11 +2,13 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { products } from '@/data/products';
+import { useProducts } from '@/context/ProductsContext';
+import Link from 'next/link';
 import GridView from './grid-view';
 
 export default function ProductsPage() {
   const [viewMode, setViewMode] = useState<'table' | 'grid'>('table');
+  const { products, deleteProduct } = useProducts();
 
   return (
     <div>
@@ -150,10 +152,10 @@ export default function ProductsPage() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <button className="mr-3 px-3 py-1 rounded-md bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-300 dark:hover:bg-indigo-900/50">
+                      <Link href={`/dashboard/products/${product.id}/edit`} className="mr-3 px-3 py-1 rounded-md bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-300 dark:hover:bg-indigo-900/50">
                         Edit
-                      </button>
-                      <button className="px-3 py-1 rounded-md bg-red-50 text-red-700 hover:bg-red-100 dark:bg-red-900/30 dark:text-red-300 dark:hover:bg-red-900/50">
+                      </Link>
+                      <button onClick={() => deleteProduct(product.id)} className="px-3 py-1 rounded-md bg-red-50 text-red-700 hover:bg-red-100 dark:bg-red-900/30 dark:text-red-300 dark:hover:bg-red-900/50">
                         Delete
                       </button>
                     </td>
