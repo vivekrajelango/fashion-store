@@ -8,7 +8,7 @@ export function Header() {
   const itemCount = getItemCount();
 
   return (
-    <header className="bg-white shadow">
+    <header className="bg-white shadow sticky top-0 z-40">
       <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-gray-900">

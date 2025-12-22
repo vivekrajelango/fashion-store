@@ -13,10 +13,10 @@ export default function ProductsPage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Women&apos;s Fashion Products</h1>
-        <button className="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-md shadow-sm">
-          Add New Product
-        </button>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">All Products</h1>
+        <Link href="/dashboard/products/new" className="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-md shadow-sm">
+          Add Product
+        </Link>
       </div>
 
       <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm overflow-hidden">
@@ -40,12 +40,12 @@ export default function ProductsPage() {
               <option>XL</option>
             </select>
           </div>
-          
+
           <div className="flex items-center space-x-4">
             <div className="relative">
-              <input 
-                type="text" 
-                placeholder="Search products..." 
+              <input
+                type="text"
+                placeholder="Search products..."
                 className="w-64 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 pl-9 pr-3 py-2 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
               />
               <svg
@@ -58,9 +58,9 @@ export default function ProductsPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
-            
+
             <div className="flex border border-gray-300 dark:border-gray-700 rounded-md overflow-hidden">
-              <button 
+              <button
                 className={`px-3 py-2 ${viewMode === 'table' ? 'bg-pink-100 dark:bg-pink-900/30 text-pink-800 dark:text-pink-200' : 'bg-white dark:bg-gray-800'}`}
                 onClick={() => setViewMode('table')}
               >
@@ -68,7 +68,7 @@ export default function ProductsPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
               </button>
-              <button 
+              <button
                 className={`px-3 py-2 ${viewMode === 'grid' ? 'bg-pink-100 dark:bg-pink-900/30 text-pink-800 dark:text-pink-200' : 'bg-white dark:bg-gray-800'}`}
                 onClick={() => setViewMode('grid')}
               >
@@ -109,8 +109,8 @@ export default function ProductsPage() {
                       <div className="flex items-center">
                         <div className="h-10 w-10 flex-shrink-0 relative">
                           <div className="h-10 w-10 rounded-md bg-gray-200 dark:bg-gray-700 overflow-hidden">
-                            <Image 
-                              src={product.image} 
+                            <Image
+                              src={product.image}
                               alt={product.name}
                               fill
                               className="object-cover"
@@ -123,7 +123,7 @@ export default function ProductsPage() {
                             {product.name}
                           </div>
                           <div className="text-sm text-gray-500 dark:text-gray-400">
-                            ID: {product.id}
+                            {product.description}
                           </div>
                         </div>
                       </div>
@@ -135,11 +135,11 @@ export default function ProductsPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900 dark:text-gray-100">
-                        ${product.price.toFixed(2)}
+                        ₹{product.price.toFixed(2)}
                       </div>
                       {product.salePrice && (
                         <div className="text-xs text-red-600 dark:text-red-400">
-                          Sale: ${product.salePrice.toFixed(2)}
+                          Sale: ₹{product.salePrice.toFixed(2)}
                         </div>
                       )}
                     </td>
@@ -169,7 +169,7 @@ export default function ProductsPage() {
             <GridView products={products} />
           </div>
         )}
-        
+
         <div className="px-6 py-4 flex items-center justify-between border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/40">
           <div className="text-sm text-gray-700 dark:text-gray-300">
             Showing <span className="font-medium">1</span> to <span className="font-medium">12</span> of <span className="font-medium">12</span> results

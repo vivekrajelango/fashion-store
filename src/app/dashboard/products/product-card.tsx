@@ -22,7 +22,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         )}
       </div>
-      
+
       <div className="p-4">
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-lg font-medium text-gray-900 dark:text-white">{product.name}</h3>
@@ -30,25 +30,25 @@ export default function ProductCard({ product }: ProductCardProps) {
             {product.category}
           </span>
         </div>
-        
+
         <div className="flex items-center mb-3">
           {product.salePrice ? (
             <>
-              <span className="text-lg font-bold text-gray-900 dark:text-white">${product.salePrice.toFixed(2)}</span>
-              <span className="ml-2 text-sm text-gray-500 line-through">${product.price.toFixed(2)}</span>
+              <span className="text-lg font-bold text-gray-900 dark:text-white">₹{product.salePrice.toFixed(2)}</span>
+              <span className="ml-2 text-sm text-gray-500 line-through">₹{product.price.toFixed(2)}</span>
             </>
           ) : (
-            <span className="text-lg font-bold text-gray-900 dark:text-white">${product.price.toFixed(2)}</span>
+            <span className="text-lg font-bold text-gray-900 dark:text-white">₹{product.price.toFixed(2)}</span>
           )}
         </div>
-        
+
         <div className="flex justify-between items-center">
           <div className="text-sm">
             <span className={`${product.stockQuantity > 10 ? 'text-green-500' : 'text-orange-500'} font-medium`}>
               {product.stockQuantity} in stock
             </span>
           </div>
-          
+
           <div className="flex space-x-2">
             <button className="p-1 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
