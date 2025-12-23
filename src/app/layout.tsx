@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Fashion Store",
+  title: "Janus Collectionz",
   description: "Women's fashion eCommerce store",
 };
 

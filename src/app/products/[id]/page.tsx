@@ -141,7 +141,7 @@ export default function ProductPage() {
 
       <footer className="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 py-12 mt-12">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2">FASHION STORE</h2>
+          <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2">Janus Collectionz</h2>
           <p className="text-gray-400 dark:text-gray-500 text-sm">© 2025 Handcrafted with love.</p>
         </div>
       </footer>

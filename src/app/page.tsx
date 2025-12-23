@@ -91,7 +91,7 @@ export default function Home() {
 
       <footer className="bg-white border-t py-8 mt-auto">
         <div className="container mx-auto px-4 text-center text-gray-500">
-          <p>© 2025 Fashion Store. All rights reserved.</p>
+          <p>© 2026 Janus Collectionz. All rights reserved.</p>
         </div>
       </footer>
     </div>

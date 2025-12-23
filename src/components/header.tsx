@@ -12,7 +12,7 @@ export function Header() {
       <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-gray-900">
-            <Link href="/" className="text-gray-900 no-underline hover:no-underline hover:text-gray-900">Fashion Store</Link>
+            <Link href="/" className="text-gray-900 no-underline hover:no-underline hover:text-gray-900">Janus Collectionz</Link>
           </h1>
           <nav className="flex items-center space-x-8">
             <Link href="/" className="text-gray-600 hover:text-gray-900">Home</Link>
