@@ -143,7 +143,7 @@ export default function ProductPage() {
                 <div className="container mx-auto px-4 flex flex-col items-center gap-4 text-center">
                     <Image
                         src="/logo.png"
-                        alt="Janus Collectionz"
+                        alt="Jaanuz Collectionz"
                         width={200}
                         height={60}
                         className="h-12 w-auto object-contain dark:invert"

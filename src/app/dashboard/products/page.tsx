@@ -42,7 +42,7 @@ export default function ProductsPage() {
 
             <div className="flex border border-gray-300 dark:border-gray-700 rounded-md overflow-hidden">
               <button
-                className={`px-3 py-2 ${viewMode === 'table' ? 'bg-pink-100 dark:bg-pink-900/30 text-pink-800 dark:text-pink-200' : 'bg-white dark:bg-gray-800'}`}
+                className={`px-3 py-2 ${viewMode === 'table' ? 'bg-pink-100 dark:bg-pink-900/80 text-pink-800 dark:text-white' : 'bg-white dark:bg-gray-800'}`}
                 onClick={() => setViewMode('table')}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -50,12 +50,13 @@ export default function ProductsPage() {
                 </svg>
               </button>
               <button
-                className={`px-3 py-2 ${viewMode === 'grid' ? 'bg-pink-100 dark:bg-pink-900/30 text-pink-800 dark:text-pink-200' : 'bg-white dark:bg-gray-800'}`}
+                className={`px-3 py-2 ${viewMode === 'grid' ? 'bg-pink-100 dark:bg-pink-900/80 text-pink-800 dark:text-white' : 'bg-white dark:bg-gray-800'}`}
                 onClick={() => setViewMode('grid')}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                 </svg>
+
               </button>
             </div>
           </div>
@@ -133,7 +134,7 @@ export default function ProductsPage() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <Link href={`/dashboard/products/${product.id}/edit`} className="mr-3 px-3 py-1 rounded-md bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-300 dark:hover:bg-indigo-900/50">
+                      <Link href={`/dashboard/products/edit?id=${product.id}`} className="mr-3 px-3 py-1 rounded-md bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-300 dark:hover:bg-indigo-900/50">
                         Edit
                       </Link>
                       <button onClick={() => deleteProduct(product.id)} className="px-3 py-1 rounded-md bg-red-50 text-red-700 hover:bg-red-100 dark:bg-red-900/30 dark:text-red-300 dark:hover:bg-red-900/50">

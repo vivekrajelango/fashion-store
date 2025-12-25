@@ -95,12 +95,12 @@ export default function Home() {
         <div className="container mx-auto px-4 flex flex-col items-center gap-4 text-center">
           <Image
             src="/logo.png"
-            alt="Janus Collectionz"
+            alt="Jaanuz Collectionz"
             width={200}
             height={60}
             className="h-12 w-auto object-contain"
           />
-          <p className="text-gray-500">© 2026 Janus Collectionz. All rights reserved.</p>
+          <p className="text-gray-500">© 2026 Jaanuz Collectionz. All rights reserved.</p>
         </div>
       </footer>
     </div>

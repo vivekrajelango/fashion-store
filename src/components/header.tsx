@@ -15,7 +15,7 @@ export function Header() {
           <Link href="/" className="flex items-center">
             <Image
               src="/logo.png"
-              alt="Janus Collectionz"
+              alt="Jaanuz Collectionz"
               width={250}
               height={70}
               className="h-20 w-auto object-contain"

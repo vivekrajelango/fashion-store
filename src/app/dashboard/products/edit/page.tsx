@@ -1,15 +1,16 @@
 "use client";
-import { useParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useProducts } from "@/context/ProductsContext";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, Suspense } from "react";
 import Image from "next/image";
 import { supabase } from "@/utils/supabase";
 
-export default function EditProductPage() {
+function EditProductContent() {
     const { products, updateProduct } = useProducts();
     const router = useRouter();
-    const routeParams = useParams();
-    const id = Array.isArray(routeParams?.id) ? routeParams.id[0] : (routeParams?.id as string);
+    const searchParams = useSearchParams();
+    const id = searchParams.get("id");
+
     const product = useMemo(() => products.find(p => p.id === id), [products, id]);
 
     const [name, setName] = useState("");
@@ -73,6 +74,28 @@ Please check:
             setIsUploading(false);
         }
     };
+
+    if (!id) {
+        return (
+            <div className="p-6">
+                <p className="text-red-500 font-medium">No product ID provided.</p>
+                <button onClick={() => router.push("/dashboard/products")} className="mt-4 text-pink-600 hover:underline">
+                    Back to Products
+                </button>
+            </div>
+        );
+    }
+
+    if (!product && products.length > 0) {
+        return (
+            <div className="p-6">
+                <p className="text-red-500 font-medium">Product not found.</p>
+                <button onClick={() => router.push("/dashboard/products")} className="mt-4 text-pink-600 hover:underline">
+                    Back to Products
+                </button>
+            </div>
+        );
+    }
 
     if (!product) {
         return (
@@ -236,5 +259,13 @@ Please check:
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function EditProductPage() {
+    return (
+        <Suspense fallback={<div className="p-6 italic">Loading...</div>}>
+            <EditProductContent />
+        </Suspense>
     );
 }

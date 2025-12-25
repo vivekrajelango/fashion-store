@@ -31,7 +31,7 @@ export default function DashboardLayout({
         <Link href="/" className="flex items-center">
           <Image
             src="/logo.png"
-            alt="Janus Collectionz"
+            alt="Jaanuz Collectionz"
             width={240}
             height={50}
             className="h-10 w-auto object-contain"
@@ -62,7 +62,7 @@ export default function DashboardLayout({
           <Link href="/" className="group block">
             {/* <Image
               src="/logo.png"
-              alt="Janus Collectionz"
+              alt="Jaanuz Collectionz"
               width={220}
               height={60}
               className="h-12 w-auto object-contain mb-4 dark:invert1"
