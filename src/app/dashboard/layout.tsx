@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 
@@ -26,12 +27,15 @@ export default function DashboardLayout({
   return (
     <div className="flex min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-4 z-50">
-        <Link href="/" className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-          </svg>
-          My Admin
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-20 bg-white border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-4 z-50">
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/logo.png"
+            alt="Janus Collectionz"
+            width={240}
+            height={50}
+            className="h-10 w-auto object-contain"
+          />
         </Link>
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -54,12 +58,16 @@ export default function DashboardLayout({
           fixed inset-y-0 left-0 z-40 w-64 bg-white dark:bg-gray-900 p-4 border-r border-gray-200 dark:border-gray-800 transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0
           ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         `}>
-        <div className="mb-8 mt-16 lg:mt-0">
+        <div className="mb-8 mt-24 lg:mt-0">
           <Link href="/" className="group block">
-            <h1 className="text-xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent group-hover:from-pink-500 group-hover:to-purple-500 transition-all">
-              Janus Collectionz
-            </h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">
+            {/* <Image
+              src="/logo.png"
+              alt="Janus Collectionz"
+              width={220}
+              height={60}
+              className="h-12 w-auto object-contain mb-4 dark:invert1"
+            /> */}
+            <p className="text-md text-gray-500 dark:text-gray-400 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">
               ← Go to Website
             </p>
           </Link>

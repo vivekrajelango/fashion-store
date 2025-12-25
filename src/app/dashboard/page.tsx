@@ -80,10 +80,10 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
+        {/* <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
           Dashboard Overview
-        </h1>
-        <div className="flex gap-2 text-sm text-gray-500 bg-white dark:bg-gray-900 px-3 py-1 rounded-full border border-gray-100 dark:border-gray-800 w-fit shadow-sm">
+        </h1> */}
+        <div className="flex gap-2 text-sm text-gray-500 bg-white dark:bg-gray-900 px-3 pt-4 rounded-full border border-gray-100 dark:border-gray-800 w-fit shadow-sm">
           <span className="flex items-center gap-1">
             <span className="w-2 h-2 rounded-full bg-green-500"></span> Live Status
           </span>

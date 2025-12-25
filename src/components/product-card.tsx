@@ -51,20 +51,20 @@ export function ProductCard({ product }: ProductCardProps) {
         {/* Permanent Add to Cart / Quantity controls */}
         <div className="mt-4">
           {quantity > 0 ? (
-            <div className="flex items-center justify-between bg-gray-50 rounded-xl border border-gray-100 p-1">
+            <div className="flex items-center justify-between bg-pink-600 text-white rounded-xl border border-gray-100 p-1 mx-[25%]">
               <button
                 onClick={(e) => { e.preventDefault(); removeFromCart(product.id); }}
-                className="w-10 h-10 flex items-center justify-center text-gray-900 hover:bg-white rounded-lg transition-colors"
+                className="w-10 h-10 flex items-center justify-center hover:bg-black rounded-lg transition-colors"
                 aria-label="Remove one"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
                 </svg>
               </button>
-              <span className="text-sm font-black text-gray-900">{quantity}</span>
+              <span className="text-sm font-black">{quantity}</span>
               <button
                 onClick={(e) => { e.preventDefault(); addToCart(product); }}
-                className="w-10 h-10 flex items-center justify-center text-gray-900 hover:bg-white rounded-lg transition-colors"
+                className="w-10 h-10 flex items-center justify-center hover:bg-black rounded-lg transition-colors"
                 aria-label="Add one"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

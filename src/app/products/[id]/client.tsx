@@ -140,8 +140,14 @@ export default function ProductPage() {
             </main>
 
             <footer className="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 py-12 mt-12">
-                <div className="container mx-auto px-4 text-center">
-                    <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2">Janus Collectionz</h2>
+                <div className="container mx-auto px-4 flex flex-col items-center gap-4 text-center">
+                    <Image
+                        src="/logo.png"
+                        alt="Janus Collectionz"
+                        width={200}
+                        height={60}
+                        className="h-12 w-auto object-contain dark:invert"
+                    />
                     <p className="text-gray-400 dark:text-gray-500 text-sm">© 2025 Handcrafted with love.</p>
                 </div>
             </footer>

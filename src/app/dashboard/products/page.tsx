@@ -12,7 +12,7 @@ export default function ProductsPage() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-6 mt-4">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">All Products</h1>
         <Link href="/dashboard/products/new" className="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-md shadow-sm">
           Add Product
@@ -21,28 +21,9 @@ export default function ProductsPage() {
 
       <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm overflow-hidden">
         <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900/40">
-          <div className="flex space-x-4">
-            <select className="border rounded-md px-3 py-2 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-200">
-              <option>All Categories</option>
-              <option>Dresses</option>
-              <option>Tops</option>
-              <option>Bottoms</option>
-              <option>Outerwear</option>
-              <option>Accessories</option>
-              <option>Footwear</option>
-            </select>
-            <select className="border rounded-md px-3 py-2 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-200">
-              <option>All Sizes</option>
-              <option>XS</option>
-              <option>S</option>
-              <option>M</option>
-              <option>L</option>
-              <option>XL</option>
-            </select>
-          </div>
 
-          <div className="flex items-center space-x-4">
-            <div className="relative">
+          <div className="flex items-center space-x-1">
+            {/* <div className="relative">
               <input
                 type="text"
                 placeholder="Search products..."
@@ -57,7 +38,7 @@ export default function ProductsPage() {
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-            </div>
+            </div> */}
 
             <div className="flex border border-gray-300 dark:border-gray-700 rounded-md overflow-hidden">
               <button

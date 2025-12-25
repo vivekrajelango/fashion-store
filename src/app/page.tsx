@@ -2,6 +2,7 @@
 
 import { ProductCard } from "@/components/product-card";
 import { Header } from "@/components/header";
+import Image from "next/image";
 import { useState } from "react";
 import { useProducts } from "@/context/ProductsContext";
 
@@ -31,9 +32,10 @@ export default function Home() {
 
         <section className="mb-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
-            <h3 className="text-xl font-semibold text-gray-800">Filters</h3>
+            {/* <h3 className="text-xl font-semibold text-gray-800">Filters</h3> */}
             <div className="flex items-center space-x-2">
-              <select
+              <div className="w-1/2">Our Products</div>
+              {/* <select
                 className="rounded-md border border-gray-300 px-3 py-1.5 text-sm outline-none focus:ring-1 focus:ring-pink-500"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
@@ -41,7 +43,7 @@ export default function Home() {
                 {categories.map(cat => (
                   <option key={cat} value={cat}>{cat}</option>
                 ))}
-              </select>
+              </select> */}
               <div className="relative">
                 <input
                   type="text"
@@ -90,8 +92,15 @@ export default function Home() {
       </main>
 
       <footer className="bg-white border-t py-8 mt-auto">
-        <div className="container mx-auto px-4 text-center text-gray-500">
-          <p>© 2026 Janus Collectionz. All rights reserved.</p>
+        <div className="container mx-auto px-4 flex flex-col items-center gap-4 text-center">
+          <Image
+            src="/logo.png"
+            alt="Janus Collectionz"
+            width={200}
+            height={60}
+            className="h-12 w-auto object-contain"
+          />
+          <p className="text-gray-500">© 2026 Janus Collectionz. All rights reserved.</p>
         </div>
       </footer>
     </div>
