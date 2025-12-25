@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { CartProvider } from "@/context/CartContext";
 import { ProductsProvider } from "@/context/ProductsContext";
 import { FloatingCart } from "@/components/floating-cart";
+import { PWAInstall } from "@/components/pwa-install";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,6 +19,19 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Jaanuz Collectionz",
   description: "Women's fashion eCommerce store",
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/icons/icon-192x192.png",
+    apple: "/icons/icon-192x192.png",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Jaanuz Collectionz",
+  },
+  formatDetection: {
+    telephone: false,
+  },
 };
 
 export const viewport = {
@@ -25,6 +39,7 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+  themeColor: "#db2777",
 };
 
 export default function RootLayout({
@@ -41,6 +56,7 @@ export default function RootLayout({
           <CartProvider>
             {children}
             <FloatingCart />
+            <PWAInstall />
           </CartProvider>
         </ProductsProvider>
       </body>

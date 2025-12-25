@@ -93,13 +93,7 @@ export default function Home() {
 
       <footer className="bg-white border-t py-8 mt-auto">
         <div className="container mx-auto px-4 flex flex-col items-center gap-4 text-center">
-          <Image
-            src="/logo.png"
-            alt="Jaanuz Collectionz"
-            width={200}
-            height={60}
-            className="h-12 w-auto object-contain"
-          />
+          
           <p className="text-gray-500">© 2026 Jaanuz Collectionz. All rights reserved.</p>
         </div>
       </footer>
