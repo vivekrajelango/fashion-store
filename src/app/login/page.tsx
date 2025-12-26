@@ -33,8 +33,18 @@ export default function LoginPage() {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-            <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-2xl shadow-xl">
-                <div className="text-center">
+            <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-2xl shadow-xl relative">
+                <Link
+                    href="/"
+                    className="absolute top-6 left-6 text-gray-400 hover:text-pink-600 transition-colors flex items-center gap-1 text-sm font-medium"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Back to Store
+                </Link>
+
+                <div className="text-center pt-4">
                     <Link href="/">
                         <Image
                             src="/logo.png"
@@ -90,7 +100,7 @@ export default function LoginPage() {
                         </div>
                     </div>
 
-                    <div>
+                    <div className="flex flex-col gap-3">
                         <button
                             type="submit"
                             disabled={loading}
@@ -121,6 +131,12 @@ export default function LoginPage() {
                                 'Sign in'
                             )}
                         </button>
+                        <Link
+                            href="/"
+                            className="w-full flex justify-center py-3 px-4 border border-gray-300 text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition-all text-center"
+                        >
+                            Cancel
+                        </Link>
                     </div>
                 </form>
             </div>
