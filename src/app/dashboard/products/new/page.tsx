@@ -115,7 +115,7 @@ Please check:
             />
           </div>
           <div>
-            <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest mb-1">Sale Price (₹)</label>
+            <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest mb-1">Discount Price (₹)</label>
             <input
               type="number"
               placeholder="Optional"
@@ -135,11 +135,9 @@ Please check:
           >
             <option value="">Select Category</option>
             <option value="Necklace">Necklace</option>
-            <option value="Dresses">Dresses</option>
-            <option value="Tops">Tops</option>
-            <option value="Bottoms">Bottoms</option>
-            <option value="Accessories">Accessories</option>
-            <option value="Outerwear">Outerwear</option>
+            <option value="Long haaram">Long haaram</option>
+            <option value="Bangles">Bangles</option>
+            <option value="Others">Others</option>
           </select>
         </div>
 

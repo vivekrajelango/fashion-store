@@ -32,29 +32,36 @@ export default function Home() {
 
         <section className="mb-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
-            {/* <h3 className="text-xl font-semibold text-gray-800">Filters</h3> */}
-            <div className="flex items-center space-x-2">
-              <div className="w-1/2">Our Products</div>
-              {/* <select
-                className="rounded-md border border-gray-300 px-3 py-1.5 text-sm outline-none focus:ring-1 focus:ring-pink-500"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                {categories.map(cat => (
-                  <option key={cat} value={cat}>{cat}</option>
-                ))}
-              </select> */}
-              <div className="relative">
+            <h3 className="text-xl font-bold text-gray-800">Our Collection</h3>
+            <div className="flex w-full md:w-auto gap-2">
+              <div className="relative min-w-[140px]">
+                <select
+                  className="w-full appearance-none rounded-full border border-gray-300 bg-white pl-4 pr-8 py-2 text-sm font-medium text-gray-700 outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 cursor-pointer hover:border-pink-400 transition-colors"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                >
+                  {categories.map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
+
+              <div className="relative flex-1">
                 <input
                   type="text"
-                  placeholder="Search products..."
-                  className="rounded-md border border-gray-300 pl-3 pr-8 py-1.5 text-sm w-48 outline-none focus:ring-1 focus:ring-pink-500"
+                  placeholder="Search..."
+                  className="w-full rounded-full border border-gray-300 pl-4 pr-10 py-2 text-sm outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-all"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 absolute right-2.5 top-2 text-gray-400"
+                  className="h-5 w-5 absolute right-3 top-2 text-gray-400"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -93,7 +100,7 @@ export default function Home() {
 
       <footer className="bg-white border-t py-8 mt-auto">
         <div className="container mx-auto px-4 flex flex-col items-center gap-4 text-center">
-          
+
           <p className="text-gray-500">© 2026 Jaanuz Collectionz. All rights reserved.</p>
         </div>
       </footer>

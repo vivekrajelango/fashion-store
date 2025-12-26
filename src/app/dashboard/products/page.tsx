@@ -6,8 +6,11 @@ import { useProducts } from '@/context/ProductsContext';
 import Link from 'next/link';
 import GridView from './grid-view';
 
+import { ConfirmDialog } from '@/components/confirm-dialog';
+
 export default function ProductsPage() {
   const [viewMode, setViewMode] = useState<'table' | 'grid'>('table');
+  const [productToDelete, setProductToDelete] = useState<string | null>(null);
   const { products, deleteProduct } = useProducts();
 
   return (
@@ -40,7 +43,7 @@ export default function ProductsPage() {
               </svg>
             </div> */}
 
-            <div className="flex border border-gray-300 dark:border-gray-700 rounded-md overflow-hidden">
+            {/* <div className="flex border border-gray-300 dark:border-gray-700 rounded-md overflow-hidden">
               <button
                 className={`px-3 py-2 ${viewMode === 'table' ? 'bg-pink-100 dark:bg-pink-900/80 text-pink-800 dark:text-white' : 'bg-white dark:bg-gray-800'}`}
                 onClick={() => setViewMode('table')}
@@ -58,11 +61,11 @@ export default function ProductsPage() {
                 </svg>
 
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
 
-        {viewMode === 'table' ? (
+        {false ? ( // Table view temporarily commented out
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
               <thead className="bg-gray-50 dark:bg-gray-900">
@@ -137,7 +140,10 @@ export default function ProductsPage() {
                       <Link href={`/dashboard/products/edit?id=${product.id}`} className="mr-3 px-3 py-1 rounded-md bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-300 dark:hover:bg-indigo-900/50">
                         Edit
                       </Link>
-                      <button onClick={() => deleteProduct(product.id)} className="px-3 py-1 rounded-md bg-red-50 text-red-700 hover:bg-red-100 dark:bg-red-900/30 dark:text-red-300 dark:hover:bg-red-900/50">
+                      <button
+                        onClick={() => setProductToDelete(product.id)}
+                        className="px-3 py-1 rounded-md bg-red-50 text-red-700 hover:bg-red-100 dark:bg-red-900/30 dark:text-red-300 dark:hover:bg-red-900/50"
+                      >
                         Delete
                       </button>
                     </td>
@@ -166,6 +172,19 @@ export default function ProductsPage() {
           </div>
         </div>
       </div>
+
+      <ConfirmDialog
+        isOpen={!!productToDelete}
+        onClose={() => setProductToDelete(null)}
+        onConfirm={() => {
+          if (productToDelete) {
+            deleteProduct(productToDelete);
+          }
+        }}
+        title="Delete Product"
+        message="Are you sure you want to delete this product? This action cannot be undone."
+        confirmText="Delete Product"
+      />
     </div>
   );
 }
