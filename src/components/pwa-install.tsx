@@ -26,8 +26,20 @@ export function PWAInstall() {
         const isIOSDevice = /iPhone|iPad|iPod/.test(window.navigator.userAgent) && !(window as any).MSStream;
         setIsIOS(isIOSDevice);
 
+        // Auto-reload on PWA update
+        const handleControllerChange = () => {
+            window.location.reload();
+        };
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.addEventListener('controllerchange', handleControllerChange);
+        }
+
         return () => {
             window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.removeEventListener('controllerchange', handleControllerChange);
+            }
         };
     }, []);
 
