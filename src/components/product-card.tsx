@@ -27,9 +27,10 @@ export function ProductCard({ product }: ProductCardProps) {
         />
 
         {/* Sale badge */}
-        {product.salePrice && product.salePrice < product.price && (
-          <div className="absolute top-2 right-2 rounded-full bg-pink-600 px-2 py-1 text-xs font-medium text-white z-20">Sale</div>
-        )}
+        {/* Free Shipping badge */}
+        <div className="absolute top-4 right-2 rounded-full bg-pink-600 px-3 py-2 text-[10px] font-bold uppercase text-white z-20 animate-bounce shadow-lg tracking-wider">
+          Free Shipping
+        </div>
       </div>
 
       <div className="p-4 flex flex-col flex-1">

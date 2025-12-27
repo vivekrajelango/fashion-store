@@ -24,11 +24,10 @@ export default function ProductCard({ product }: ProductCardProps) {
             className="object-cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          {product.salePrice && (
-            <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
-              SALE
-            </div>
-          )}
+          {/* Free Shipping badge */}
+          <div className="absolute top-2 right-2 rounded-full bg-pink-600 px-3 py-1 text-[10px] font-bold uppercase text-white z-20 animate-bounce shadow-lg tracking-wider">
+            Free Shipping
+          </div>
         </div>
 
         <div className="p-4">

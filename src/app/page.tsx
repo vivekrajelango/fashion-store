@@ -32,7 +32,7 @@ export default function Home() {
 
         <section className="mb-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
-            <h3 className="text-xl font-bold text-gray-800">Our Collection</h3>
+            <h3 className="text-xl font-bold text-gray-800">Our Collections</h3>
             <div className="flex w-full md:w-auto gap-2">
               <div className="relative min-w-[140px]">
                 <select
