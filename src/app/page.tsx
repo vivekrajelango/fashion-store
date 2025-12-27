@@ -29,6 +29,14 @@ export default function Home() {
           <h2 className="text-3xl font-semibold text-gray-900">Curated Styles</h2>
           <p className="mt-2 text-gray-500">Handpicked favourites just for you</p>
         </div>
+        <div className="mb-8 text-center bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 bg-[length:200%_auto] text-white py-3 px-6 rounded-xl shadow-lg animate-gradient">
+          <p className="text-lg font-bold tracking-wider uppercase animate-bounce-slow flex items-center justify-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+            </svg>
+            ✨ Enjoy free shipping on all your orders ✨
+          </p>
+        </div>
 
         <section className="mb-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">

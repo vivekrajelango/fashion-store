@@ -182,9 +182,9 @@ Please check:
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest mb-1">Description</label>
+          <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest mb-1">Shipment Details</label>
           <textarea
-            placeholder="Tell us about this product..."
+            placeholder="5-7 days"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-3 text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 transition-all outline-none"

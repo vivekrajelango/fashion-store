@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Product } from '@/data/products';
 import { useCart } from '@/context/CartContext';
+import DeliveryTruck from './DeliveryTruck';
 
 interface ProductCardProps {
   product: Product;
@@ -28,25 +29,30 @@ export function ProductCard({ product }: ProductCardProps) {
 
         {/* Sale badge */}
         {/* Free Shipping badge */}
-        <div className="absolute top-4 right-2 rounded-full bg-pink-600 px-3 py-2 text-[10px] font-bold uppercase text-white z-20 animate-bounce shadow-lg tracking-wider">
+        <div className="absolute top-4 right-2 rounded-full bg-pink-600 px-3 py-1 text-[10px] font-bold uppercase text-white z-20 animate-bounce tracking-wider bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 bg-[length:200%_auto] text-white py-2 px-4 rounded-xl shadow-lg">
           Free Shipping
         </div>
       </div>
 
       <div className="p-4 flex flex-col flex-1">
         <Link href={`/products/${product.id}`} className="flex-1">
-          <h3 className="font-bold text-gray-900 uppercase tracking-tight text-sm line-clamp-1">{product.name}</h3>
-          <p className="mt-0.5 text-[10px] text-gray-500 font-bold uppercase tracking-widest">{product.category}</p>
-          <div className="mt-2 flex items-center gap-2">
-            {product.salePrice ? (
-              <>
-                <span className="text-base font-black text-pink-600">₹{product.salePrice.toFixed(0)}</span>
-                <span className="text-xs text-gray-400 line-through">₹{product.price.toFixed(0)}</span>
-              </>
-            ) : (
-              <span className="text-base font-black text-gray-900">₹{product.price.toFixed(0)}</span>
-            )}
-          </div>
+          <h3 className="font-bold text-gray-900 uppercase tracking-tight text-lg line-clamp-1">{product.name}</h3>
+          <section className='flex flex-row justify-between items-center gap-2'>
+            <section className='flex flex-row items-center gap-2'>
+              <DeliveryTruck size={40} />
+              <p className="mt-0.5 text-[12px] text-gray-500 font-bold uppercase tracking-widest">{product.description}</p>
+            </section>
+            <div className="mt-2 flex items-center gap-1">
+              {product.salePrice ? (
+                <>
+                  <span className="text-xl font-black text-pink-600">₹{product.salePrice.toFixed(0)}</span>
+                  <span className="text-sm text-gray-400 line-through">₹{product.price.toFixed(0)}</span>
+                </>
+              ) : (
+                <span className="text-xl font-black text-gray-900">₹{product.price.toFixed(0)}</span>
+              )}
+            </div>
+          </section>
         </Link>
 
         {/* Permanent Add to Cart / Quantity controls */}
