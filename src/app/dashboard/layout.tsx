@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -28,58 +28,88 @@ export default function DashboardLayout({
     { name: 'Orders', href: '/dashboard/orders', badge: pendingOrdersCount > 0 ? pendingOrdersCount : null },
   ];
 
+  // State for Toast Notification
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
   useEffect(() => {
-    // Initial fetch of pending orders
-    const getPendingOrders = async () => {
-      const { count } = await supabase
-        .from('fashionorders')
-        .select('*', { count: 'exact', head: true })
-        .eq('status', 'pending');
+    if (toastMessage) {
+      const timer = setTimeout(() => setToastMessage(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [toastMessage]);
 
-      setPendingOrdersCount(count || 0);
-    };
+  const showNotification = async (title: string, body: string) => {
+    // 1. Show In-App Toast (Reliable fallback)
+    setToastMessage(`${title}: ${body}`);
 
-    getPendingOrders();
-
-    // Subscribe to real-time changes
-    const channel = supabase
-      .channel('pending-orders-channel')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'fashionorders',
-        },
-        async (payload) => {
-          // You could optimize this by manually updating state, but refetching count is safer for accuracy
-          console.log('Realtime update:', payload);
-          getPendingOrders();
-
-          // Trigger Native Notification on New Order
-          if (payload.eventType === 'INSERT' && (payload.new as any).status === 'pending') {
-            try {
-              if (Notification.permission === 'granted') {
-                const registration = await navigator.serviceWorker.ready;
-                registration.showNotification('New Order Received! 🛍️', {
-                  body: `Customer ${(payload.new as any).customer_name} placed an order of ₹${(payload.new as any).total_amount}`,
-                  icon: '/icons/icon-192x192.png',
-                  badge: '/icons/icon-192x192.png',
-                  tag: 'new-order',
-                  data: { url: '/dashboard/orders' }
-                });
-              }
-            } catch (error) {
-              console.error('Notification error:', error);
-            }
-          }
+    // 2. Try Standard Notification API
+    try {
+      if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+        // PWA Service Worker Notification (Required for iOS/Android Background)
+        if ('serviceWorker' in navigator) {
+          const registration = await navigator.serviceWorker.ready;
+          await registration.showNotification(title, {
+            body: body,
+            icon: '/icons/icon-192x192.png',
+            badge: '/icons/icon-192x192.png',
+            tag: 'new-order',
+            data: { url: '/dashboard/orders' }
+          });
+        } else {
+          // Desktop Fallback
+          new Notification(title, { body, icon: '/icons/icon-192x192.png' });
         }
-      )
-      .subscribe();
+      }
+    } catch (e) {
+      console.error("Notification trigger failed", e);
+    }
+  };
 
-    return () => {
-      supabase.removeChannel(channel);
+  // Use REF to persist count across re-renders without triggering them
+  const previousCountRef = useRef(0);
+
+  useEffect(() => {
+    // POLLING SYSTEM (Since Realtime is disabled on Free Version)
+
+    const checkOrders = async (isInitial = false) => {
+      try {
+        const { count, error } = await supabase
+          .from('fashionorders')
+          .select('*', { count: 'exact', head: true })
+          .eq('status', 'pending');
+
+        if (error) {
+          console.error("Error checking orders:", error);
+          return;
+        }
+
+        const currentCount = count || 0;
+        setPendingOrdersCount(currentCount);
+
+        // Notify if count INCREASED (New Order!)
+        if (!isInitial && currentCount > previousCountRef.current) {
+          const newOrdersCount = currentCount - previousCountRef.current;
+          showNotification(
+            'New Order Received! 🛍️',
+            `You have ${newOrdersCount} new pending order${newOrdersCount > 1 ? 's' : ''}!`
+          );
+        }
+
+        previousCountRef.current = currentCount;
+      } catch (err) {
+        console.error("Polling error:", err);
+      }
     };
+
+    // 1. Initial Check
+    checkOrders(true);
+
+    // 2. Poll every 1 minute (60,000 ms) - Good balance for battery/updates
+    const intervalId = setInterval(() => {
+      checkOrders();
+    }, 60 * 5 * 1000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   const requestNotificationPermission = async () => {
@@ -98,6 +128,11 @@ export default function DashboardLayout({
 
   return (
     <AuthGuard>
+      {toastMessage && (
+        <div className="fixed top-4 right-4 z-[100] bg-pink-600 text-white px-4 py-2 rounded-lg shadow-lg animate-fade-in-down border-l-4 border-white transition-all transform hover:scale-105 cursor-pointer max-w-[90vw]" onClick={() => setToastMessage(null)}>
+          {toastMessage}
+        </div>
+      )}
       <div className="flex min-h-screen bg-gray-50 dark:bg-gray-950">
         {/* Mobile Header */}
         <div className="lg:hidden fixed top-0 left-0 right-0 h-20 bg-white border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-4 z-50">

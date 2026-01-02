@@ -8,6 +8,7 @@ interface ProductsContextType {
   addProduct: (product: Omit<Product, 'id'>) => Promise<void>;
   updateProduct: (id: string, updates: Partial<Product>) => Promise<void>;
   deleteProduct: (id: string) => Promise<void>;
+  refreshProducts: () => Promise<void>;
   loading: boolean;
 }
 
@@ -87,7 +88,7 @@ export function ProductsProvider({ children }: { children: React.ReactNode }) {
   };
 
   const value = useMemo(
-    () => ({ products, addProduct, updateProduct, deleteProduct, loading }),
+    () => ({ products, addProduct, updateProduct, deleteProduct, refreshProducts: fetchProducts, loading }),
     [products, loading]
   );
 

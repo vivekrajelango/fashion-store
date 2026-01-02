@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { supabase } from '@/utils/supabase';
+import { useProducts } from '@/context/ProductsContext';
 
 interface OrderItem {
     id: string;
@@ -25,6 +26,7 @@ export default function OrdersPage() {
     const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(true);
     const [updatingId, setUpdatingId] = useState<string | null>(null);
+    const { refreshProducts } = useProducts();
 
     const fetchOrders = async () => {
         try {
@@ -50,6 +52,60 @@ export default function OrdersPage() {
     const handleStatusUpdate = async (id: string, newStatus: string) => {
         try {
             setUpdatingId(id);
+
+            // If approving, handle stock updates first
+            if (newStatus === 'approved') {
+                // 1. Fetch fresh order data to ensure we have the correct items
+                const { data: orderData, error: orderError } = await supabase
+                    .from('fashionorders')
+                    .select('items')
+                    .eq('id', id)
+                    .single();
+
+                if (orderError || !orderData) {
+                    throw new Error('Failed to fetch order details for stock update');
+                }
+
+                const items = orderData.items as OrderItem[];
+
+                // 2. Process stock updates for each item
+                for (const item of items) {
+                    try {
+                        // Get current stock
+                        const { data: product, error: fetchError } = await supabase
+                            .from('fashionproducts')
+                            .select('stockQuantity')
+                            .eq('id', item.id)
+                            .single();
+
+                        if (fetchError) {
+                            console.error(`Error fetching stock for product ${item.id}:`, fetchError);
+                            // We continue to try other items, or should we abort?
+                            // For now, logging error but continuing best effort
+                            continue;
+                        }
+
+                        const currentStock = product?.stockQuantity ?? 0;
+                        const newStock = Math.max(0, currentStock - item.quantity);
+
+                        // Update stock
+                        const { error: updateError } = await supabase
+                            .from('fashionproducts')
+                            .update({ stockQuantity: newStock })
+                            .eq('id', item.id);
+
+                        if (updateError) {
+                            console.error(`Error updating stock for product ${item.id}:`, updateError);
+                        } else {
+                            console.log(`Stock updated for product ${item.id}: ${currentStock} -> ${newStock}`);
+                        }
+                    } catch (itemErr) {
+                        console.error(`Unexpected error processing item ${item.id}:`, itemErr);
+                    }
+                }
+            }
+
+            // 3. Update order status
             const { error } = await supabase
                 .from('fashionorders')
                 .update({ status: newStatus })
@@ -57,12 +113,19 @@ export default function OrdersPage() {
 
             if (error) throw error;
 
+            // 4. Update local state
             setOrders(prev => prev.map(order =>
                 order.id === id ? { ...order, status: newStatus } : order
             ));
+
+            // 5. Refresh products context to ensure stock levels are updated across the app
+            if (newStatus === 'approved') {
+                refreshProducts();
+            }
+
         } catch (err) {
             console.error('Error updating status:', err);
-            alert('Failed to update status');
+            alert('Failed to update status. Check console for details.');
         } finally {
             setUpdatingId(null);
         }
@@ -136,8 +199,8 @@ export default function OrdersPage() {
                                         </td>
                                         <td className="px-6 py-4 align-top">
                                             <span className={`px-3 py-1 text-[10px] font-black uppercase tracking-widest rounded-full ${order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                                                    order.status === 'approved' ? 'bg-green-100 text-green-800' :
-                                                        'bg-red-100 text-red-800'
+                                                order.status === 'approved' ? 'bg-green-100 text-green-800' :
+                                                    'bg-red-100 text-red-800'
                                                 }`}>
                                                 {order.status}
                                             </span>
@@ -184,8 +247,8 @@ export default function OrdersPage() {
                             <div className="p-4 border-b border-gray-50 dark:border-gray-700 flex justify-between items-center bg-gray-50/50 dark:bg-gray-900/30">
                                 <span className="text-xs font-mono font-bold text-gray-500 uppercase tracking-tighter">#{order.id.slice(0, 8)}</span>
                                 <span className={`px-2 py-0.5 text-[9px] font-black uppercase tracking-widest rounded-full ${order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                                        order.status === 'approved' ? 'bg-green-100 text-green-800' :
-                                            'bg-red-100 text-red-800'
+                                    order.status === 'approved' ? 'bg-green-100 text-green-800' :
+                                        'bg-red-100 text-red-800'
                                     }`}>
                                     {order.status}
                                 </span>
