@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { CartProvider } from "@/context/CartContext";
 import { ProductsProvider } from "@/context/ProductsContext";
 import { FloatingCart } from "@/components/floating-cart";
+import { ChatWidget } from "@/components/chat-widget";
 import { PWAInstall } from "@/components/pwa-install";
 import "./globals.css";
 
@@ -56,6 +57,7 @@ export default function RootLayout({
           <CartProvider>
             {children}
             <FloatingCart />
+            <ChatWidget />
             <PWAInstall />
           </CartProvider>
         </ProductsProvider>

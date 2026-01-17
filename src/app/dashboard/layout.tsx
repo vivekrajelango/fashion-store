@@ -26,6 +26,7 @@ export default function DashboardLayout({
     { name: 'Dashboard', href: '/dashboard' },
     { name: 'Products', href: '/dashboard/products' },
     { name: 'Orders', href: '/dashboard/orders', badge: pendingOrdersCount > 0 ? pendingOrdersCount : null },
+    { name: 'Customer Chat', href: '/dashboard/chat' },
   ];
 
   // State for Toast Notification
