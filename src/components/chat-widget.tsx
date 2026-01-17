@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { supabase } from '@/utils/supabase';
 import { ChatMessage } from '@/types/chat';
 
-type ChatStep = 'details' | 'options' | 'chat';
+type ChatStep = 'details' | 'chat';
 
 export function ChatWidget() {
     const [isOpen, setIsOpen] = useState(false);
@@ -22,14 +22,6 @@ export function ChatWidget() {
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
-
-    const predefinedOptions = [
-        "📦 Order Status",
-        "🚚 Delivery Time",
-        "👗 Product Enquiry",
-        "🔄 Return/Exchange",
-        "💬 Chat with Agent"
-    ];
 
     // Load session if exists
     useEffect(() => {
@@ -90,7 +82,7 @@ export function ChatWidget() {
         if (data) setMessages(data as ChatMessage[]);
     };
 
-    const handleDetailsSubmit = (e: React.FormEvent) => {
+    const handleDetailsSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!customerName.trim() || !customerMobile.trim()) {
             setFormError('Please fill in all details');
@@ -101,19 +93,16 @@ export function ChatWidget() {
             return;
         }
         setFormError('');
-        setStep('options');
-    };
 
-    const handleOptionClick = async (option: string) => {
-        setStep('chat');
+        // Start Chat Session Directly
         if (!sessionId) {
-            await createSession(option);
+            await createSession();
         } else {
-            await sendMessage(option);
+            setStep('chat');
         }
     };
 
-    const createSession = async (initialMessage: string) => {
+    const createSession = async () => {
         setIsLoading(true);
         const { data, error } = await supabase
             .from('chat_sessions')
@@ -129,9 +118,7 @@ export function ChatWidget() {
             setSessionId(sid);
             localStorage.setItem('chatSessionId', sid);
             subscribeToMessages(sid);
-
-            // Send the initial message
-            await sendMessage(initialMessage, sid);
+            setStep('chat');
         }
         setIsLoading(false);
     };
@@ -156,16 +143,19 @@ export function ChatWidget() {
                 .eq('id', sid);
 
             // Notify Telegram
-            fetch('/api/telegram/send', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
+            // Notify Telegram via Edge Function
+            const { error: fnError } = await supabase.functions.invoke('telegram-send', {
+                body: {
                     message_id: data.id,
                     content: content,
                     customer_name: customerName,
                     session_id: sid
-                }),
+                }
             });
+
+            if (fnError) {
+                console.error('Failed to invoke telegram-send:', fnError);
+            }
         }
     };
 
@@ -216,8 +206,7 @@ export function ChatWidget() {
                     </h3>
                     <p className="text-pink-100 text-xs mt-1">
                         {step === 'details' ? 'Please tell us who you are' :
-                            step === 'options' ? 'How can we help?' :
-                                'We typically reply within a few minutes.'}
+                            'We typically reply within a few minutes.'}
                     </p>
                 </div>
 
@@ -261,28 +250,7 @@ export function ChatWidget() {
                         </div>
                     )}
 
-                    {/* Step 2: Options */}
-                    {step === 'options' && (
-                        <div className="p-4 space-y-3 animate-in slide-in-from-right duration-300">
-                            <p className="text-sm text-gray-500 mb-2 font-medium px-1">Please select a topic:</p>
-                            {predefinedOptions.map((option, idx) => (
-                                <button
-                                    key={idx}
-                                    onClick={() => handleOptionClick(option)}
-                                    className="w-full text-left p-4 bg-white border border-gray-200 rounded-xl hover:border-pink-500 hover:shadow-md transition-all text-sm font-medium text-gray-700 group flex justify-between items-center"
-                                >
-                                    {option}
-                                    <span className="text-gray-300 group-hover:text-pink-500 transition-colors">→</span>
-                                </button>
-                            ))}
-                            <button
-                                onClick={() => setStep('details')}
-                                className="w-full text-center text-xs text-gray-400 hover:text-gray-600 mt-4"
-                            >
-                                ← Back to details
-                            </button>
-                        </div>
-                    )}
+
 
                     {/* Step 3: Chat */}
                     {step === 'chat' && (
