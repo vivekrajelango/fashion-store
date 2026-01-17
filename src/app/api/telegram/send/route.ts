@@ -59,9 +59,12 @@ export async function POST(req: NextRequest) {
         }
 
         return NextResponse.json({ success: true, telegram_message_id: telegramMsgId });
-
     } catch (e) {
         console.error('Handler Error:', e);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
+}
+
+export async function GET() {
+    return NextResponse.json({ status: 'API is working. Please use POST to send messages.' });
 }
