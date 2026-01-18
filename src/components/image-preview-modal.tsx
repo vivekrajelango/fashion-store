@@ -59,6 +59,29 @@ export function ImagePreviewModal({ isOpen, onClose, imageUrl, altText }: ImageP
 
     const onMouseUp = () => setIsDragging(false);
 
+    // Touch Support
+    const onTouchStart = (e: React.TouchEvent) => {
+        if (scale > 1 && e.touches.length === 1) {
+            setIsDragging(true);
+            const touch = e.touches[0];
+            setStartPos({ x: touch.clientX - position.x, y: touch.clientY - position.y });
+        }
+    };
+
+    const onTouchMove = (e: React.TouchEvent) => {
+        if (isDragging && scale > 1 && e.touches.length === 1) {
+            // e.preventDefault(); // Note: Often better not to preventDefault on touchmove globally unless passive: false is set, but React handles this. 
+            // However, to prevent scrolling the background, we rely on the body overflow hidden effect.
+            const touch = e.touches[0];
+            setPosition({
+                x: touch.clientX - startPos.x,
+                y: touch.clientY - startPos.y
+            });
+        }
+    };
+
+    const onTouchEnd = () => setIsDragging(false);
+
     if (!isOpen) return null;
 
     return (
@@ -103,6 +126,12 @@ export function ImagePreviewModal({ isOpen, onClose, imageUrl, altText }: ImageP
                 onMouseMove={onMouseMove}
                 onMouseUp={onMouseUp}
                 onMouseLeave={onMouseUp}
+
+                // Touch Handlers
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
+
                 onClick={(e) => {
                     // Close if clicking background (but not when dragging)
                     if (scale === 1 && e.target === containerRef.current) onClose();
